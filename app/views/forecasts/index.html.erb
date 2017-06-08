@@ -1,0 +1,21 @@
+<h1><%= @item["title"] %></h1>
+<p><%= @condition["date"] %></p>
+<p>Temp: <%= @condition["temp"] %> F</p>
+<p><%= @condition["text"] %></p>
+
+<h3>Five Day Forecast</h3>
+<% @forecasts[1...5].each do |forecast| %>
+  <p><%= forecast["date"] %> (<%= forecast["day"] %>)</p>
+  <p>High: <%= forecast["high"] %> F</p>
+  <p>Low: <%= forecast["low"] %> F</p>
+  <p><%= forecast["text"] %></p>
+<% end %>
+
+<%= form_tag "/forecasts", method: :get do %>
+  <p>City: <input type="text" name="city"></p>
+  <p>State: <input type="text" name="state"></p>
+  <p><input type="submit" value="Find Forecast"></p>
+
+<% end %>
+
+<%= @item["description"].html_safe %>
