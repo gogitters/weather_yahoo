@@ -1,21 +1,23 @@
-<h1><%= @item["title"] %></h1>
-<p><%= @condition["date"] %></p>
-<p>Temp: <%= @condition["temp"] %> F</p>
-<p><%= @condition["text"] %></p>
+<div class="<%= @weather.condition.text %>">
+  
+  <h1><%= @weather.title %></h1>
+  <p><%= @weather.condition.date %></p>
+  <p>Temp: <%= @weather.condition.temp %> F, <%= (@weather.condition.temp - 32) * 5 / 9 %> C</p>
+  <p><%= @weather.condition.text %></p>
+  <img src="<%= @weather.image.url %>" alt="<%= @weather.condition.text %>">
 
-<h3>Five Day Forecast</h3>
-<% @forecasts[1...5].each do |forecast| %>
-  <p><%= forecast["date"] %> (<%= forecast["day"] %>)</p>
-  <p>High: <%= forecast["high"] %> F</p>
-  <p>Low: <%= forecast["low"] %> F</p>
-  <p><%= forecast["text"] %></p>
-<% end %>
+  <h3>Three Day Forecast</h3>
+  <% @weather.forecasts[0...3].each do |forecast| %>
+    <p><%= forecast.date.strftime("%b %d, %Y") %> (<%= forecast.day %>)</p>
+    <p>High: <%= forecast.high %> F</p>
+    <p>Low: <%= forecast.low %> F</p>
+    <p><%= forecast.text %></p>
+  <% end %>
 
-<%= form_tag "/forecasts", method: :get do %>
-  <p>City: <input type="text" name="city"></p>
-  <p>State: <input type="text" name="state"></p>
-  <p><input type="submit" value="Find Forecast"></p>
+  <%= form_tag "/forecasts", method: :get do %>
+    <p>City: <input type="text" name="city"></p>
+    <p>State: <input type="text" name="state"></p>
+    <p><input type="submit" value="Find Forecast"></p>
 
-<% end %>
-
-<%= @item["description"].html_safe %>
+  <% end %>
+</div>
